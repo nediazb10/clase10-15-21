@@ -1,0 +1,84 @@
+insert into Cliente (id, nombres, apellidos, telefonos)
+values('109899', 'Juan', 'Pérez Gómez', 3023345664);
+insert into Cliente (id, nombres, apellidos, telefonos)
+values('104695', 'José', 'López Ariza', 3123675774);
+
+insert into Cliente (id, nombres, apellidos, telefonos)
+values('109899', 'Juan', 'Pérez Gómez', 3023345664),('104695', 'José', 'López Ariza', 3123675774);
+
+
+
+insert into FormaDePago (id, nombre)
+values(1, 'Tarjeta de crédito'),(2, 'Tarjeta dédito'),(3, 'Efectivo');
+
+
+
+insert into Producto (id, nombre, precio, existencias)
+values(99, 'Mouse', 25000, 64),(104, 'Teclado', 48000, 77),(47, 'Monitor', 368000, 23);
+
+
+
+insert into DetallePedido (sec, id_pedido, id_producto, precio, cantidad)
+values(1, 1008, 104, 48000, 2),(2, 1018, 104, 48000, 4),(3, 1009, 47, 368000, 1);
+
+
+
+select * from DetallePedido;
+
+insert into DetallePedido (sec, id_pedido, id_producto, precio, cantidad) 
+values(3, 1019, 47, 368000, 1);
+
+delete from Pedido where id=1008;
+
+update Pedido set id=1000 where codigo=1008;
+
+select * from Pedido where id > 1008;
+select * from DetallePedido;
+
+
+
+CREATE TABLE mensajes (
+    message_id INTEGER PRIMARY KEY,
+    from_id    INTEGER REFERENCES usuario (id),
+    to_id      INTEGER NOT NULL,
+    asunto     VARCHAR NOT NULL,
+    mensaje    VARCHAR NOT NULL
+);
+
+
+CREATE TABLE usuario (
+    id         INTEGER PRIMARY KEY,
+    nombre     VARCHAR NOT NULL,
+    usuario    VARCHAR NOT NULL,
+    correo     VARCHAR NOT NULL,
+    contraseña VARCHAR NOT NULL
+);
+
+
+
+insert into usuario (id, nombre, usuario, correo, contraseña)
+values(1, 'John', 'John1', 'J@j.com', 'prueba1'),
+(2, 'Marcela', 'Marcela1', 'm@m.com', 'prueba2'),
+(3, 'Pedro', 'Pedro1', 'p@p.com', 'prueba3'),
+(4, 'Ana', 'Ana1', 'a@a.com', 'prueba4');
+
+select * from usuario;
+
+insert into mensajes (message_id, from_id, to_id, asunto, mensaje)
+values(1, 1, 4, 'Hola', 'Hola Ana!'),
+(2, 2, 1, 'Prueba', 'Saludos John'),
+(3, 3, 4, 'Hello', 'Hola Mundo :)'),
+(4, 4, 2, 'Chao', 'Hasta pronto Marcela'),
+(5, 1, 2, 'Saludos', 'Hola Marcela');
+
+select * from mensajes;
+
+
+
+conexion = conexion_bd()
+    strsql = 'SELECT * FROM usuario'
+    cursor = conexion.cursor()
+    cursor.execute(strsql)
+    datos = cursor.fetchall()
+    return jsonify(datos)
+
